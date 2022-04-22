@@ -1,5 +1,5 @@
 import './App.css';
-import './components/Educational';
+import Educational from './components/Educational.js';
 import General from './components/General.js';
 import './components/Practical';
 import './components/Header.js';
@@ -17,6 +17,7 @@ class App extends Component {
       <div>
       <Header/>
       <General/>
+      <Educational/>
       </div>
     );
   }
