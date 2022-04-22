@@ -12,6 +12,7 @@ class Educational extends Component {
             title: "",
             dateStart: "",
             dateEnd: "",
+            ongoing: false,
             submitInfo: "hidden",
             edit: "block"
         }
@@ -44,6 +45,11 @@ class Educational extends Component {
             submitInfo: 'flex',
             edit: 'hidden'
         })
+    }
+    handleCheck = () => {
+        this.setState(
+            prevState => ({ongoing: !prevState.ongoing
+        }))
     }
     handleEdit = (e) => {
         e.preventDefault();
@@ -87,10 +93,12 @@ class Educational extends Component {
                             type="date"
                             id="dateEndInput"
                         />
+                        <label htmlFor="ongoing">Ongoing Studies:</label>
+                        <input type="checkbox" onChange={this.handleCheck} />
                         <button type="submit" onClick={this.onSubmitGeneral}>Add</button>
                         </form>
                     </div>
-                    <div className={this.state.submitInfo.toString()}><EducationalOverview school={this.state.school} title={this.state.title} dateStart={this.state.dateStart} dateEnd={this.state.dateEnd} edit={this.handleEdit}/></div>
+                    <div className={this.state.submitInfo.toString()}><EducationalOverview school={this.state.school} title={this.state.title} dateStart={this.state.dateStart} dateEnd={this.state.dateEnd} ongoing={this.state.ongoing} edit={this.handleEdit}/></div>
                 </div>
             </div>
         );
