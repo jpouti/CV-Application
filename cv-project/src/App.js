@@ -6,6 +6,7 @@ import './components/Header.js';
 import './components/Footer.js';
 import Header from './components/Header.js';
 import React, { Component } from 'react'
+import Practical from './components/Practical.js';
 
 class App extends Component {
   constructor() {
@@ -18,6 +19,7 @@ class App extends Component {
       <Header/>
       <General/>
       <Educational/>
+      <Practical/>
       </div>
     );
   }
