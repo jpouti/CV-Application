@@ -62,7 +62,7 @@ class Educational extends Component {
         return (
             <div className="container">
                 <div className="card mt-10 mx-10">
-                    <h3>Educational experiene:</h3>
+                    <h3 className="text-sky-800 font-bold">Educational experiene:</h3>
                     <div className={this.state.edit.toString()}>
                         <form onSubmit={this.onSubmitGeneral} className="grid grid-cols-4 grid-rows-2 grid-gap-10 mt-10">
                         <label htmlFor="schoolInput">School name:</label>

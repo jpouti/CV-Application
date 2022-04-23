@@ -1,0 +1,14 @@
+.container {
+    max-width: 100%;
+}
+
+.container input {
+    background-color: rgb(224, 242, 254); /* sky-100 */
+    border-radius: 0.25rem;
+    padding: 0.15rem;
+    padding-left: 0.4rem;
+}
+/*
+.container label {
+    color: white;
+} */
