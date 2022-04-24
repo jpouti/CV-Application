@@ -10,6 +10,7 @@ class Educational extends Component {
         this.state = {
             school: "",
             title: "",
+            courses: "",
             dateStart: "",
             dateEnd: "",
             ongoing: false,
@@ -37,10 +38,29 @@ class Educational extends Component {
         this.setState({
             dateEnd: e.target.value
         })
-    } 
+    }
+    handleCourses = (e) => {
+        this.setState({
+            courses: e.target.value
+        })
+    }
   
     onSubmitGeneral = (e) => {
         e.preventDefault();
+        if (this.state.school === "") {
+            alert('Please enter school name before submitting!');
+            return
+        } else if (this.state.title === "") {
+            alert('Please enter title of your degree before submitting!')
+            return
+        } else if (this.state.dateStart === "") {
+            alert('Please enter starting date for studies before submitting!')
+            return
+        } else if (this.state.dateEnd === "") {
+            this.setState({
+                ongoing: true
+            })
+        }
         this.setState({
             submitInfo: 'flex',
             edit: 'hidden'
@@ -60,24 +80,28 @@ class Educational extends Component {
     }
     render() {
         return (
-            <div className="container">
-                <div className="card mt-10 mx-10">
+            <div className="container p-5" >
+                <div className="mt-10 mx-10 lg:max-w-3xl">
                     <h3 className="text-sky-800 font-bold">Educational experiene:</h3>
                     <div className={this.state.edit.toString()}>
-                        <form onSubmit={this.onSubmitGeneral} className="grid grid-cols-4 grid-rows-2 grid-gap-10 mt-10">
+                        <form onSubmit={this.onSubmitGeneral} className="grid grid-rows-5 grid-cols-auto gap-1 lg:gap-5 mt-10">
                         <label htmlFor="schoolInput">School name:</label>
                         <input
+                            className="col-start-2"
                             onChange={this.handleSchool}
                             value={this.school}
                             type='text'
                             id="schoolInput"
+                            placeholder="University of Helsinki"
                         />
+                        <button type="submit" onClick={this.onSubmitGeneral} className="col-start-3 row-span-5 mt-5">Add</button>
                         <label htmlFor="titleInput">Title:</label>
                         <input
                             onChange={this.handleTitle}
                             value={this.title}
                             type='text'
                             id="titleInput"
+                            placeholder="Computer Science"
                         />
                         <label htmlFor="dateStartInput">Start of studies:</label>
                         <input
@@ -93,12 +117,22 @@ class Educational extends Component {
                             type="date"
                             id="dateEndInput"
                         />
-                        <label htmlFor="ongoing">Ongoing Studies:</label>
-                        <input type="checkbox" onChange={this.handleCheck} />
-                        <button type="submit" onClick={this.onSubmitGeneral}>Add</button>
+                        <label htmlFor="ongoing" >Ongoing Studies:</label>
+                        <div className="text-center"><input type="checkbox" onChange={this.handleCheck}/></div>
+                        <label htmlFor="courseInput">Majors:</label>
+                        <textarea
+                            className="bg-sky-100 rounded p-2"
+                            type="text"
+                            rows="4"
+                            maxLength={2000}
+                            onChange={this.handleCourses}
+                            value={this.courses}
+                            placeholder="Please enter major courses or key projects you have accomplished while studying"
+                            
+                        />
                         </form>
                     </div>
-                    <div className={this.state.submitInfo.toString()}><EducationalOverview school={this.state.school} title={this.state.title} dateStart={this.state.dateStart} dateEnd={this.state.dateEnd} ongoing={this.state.ongoing} edit={this.handleEdit}/></div>
+                    <div className={this.state.submitInfo.toString()}><EducationalOverview school={this.state.school} title={this.state.title} dateStart={this.state.dateStart} dateEnd={this.state.dateEnd} ongoing={this.state.ongoing} courses={this.state.courses} edit={this.handleEdit}/></div>
                 </div>
             </div>
         );

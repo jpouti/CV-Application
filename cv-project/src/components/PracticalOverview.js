@@ -7,18 +7,17 @@ export default class PracticalOverview extends Component {
   render() {
       const { company, position, dateStart, dateEnd, tasks, edit } = this.props;
       const check = this.props.ongoing
-        ? <p>Ongoing work</p>
-        : <p>Ending date:<br/> {dateEnd}</p>;
+        ? <p>Ongoing</p>
+        : <p>{dateEnd}</p>;
     return (
       <div className="flex flex-col gap-10 mt-10">
         <div className='flex gap-10'>
-            <p>Company Name: <br/> {company}</p>
-            <p>Position: <br/> {position}</p>
-            <p>Starting date:<br/>  {dateStart}</p>
-            {check}
+            <div className='flex gap-2'>{dateStart} / {check}</div>
+            <p>{company}</p>
+            <p>{position}</p>
         </div>
         <div className='flex'>
-            <p className='flex-1'>Main tasks:<br/>  {tasks}</p>
+            <p className='flex-1 mr-10'>Main tasks:<br/>  {tasks}</p>
             <button onClick={edit} type='button'>Edit</button>
         </div>
       </div>   

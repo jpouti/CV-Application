@@ -16,10 +16,12 @@ class App extends Component {
   render() {
     return (
       <div>
-      <Header/>
-      <General/>
-      <Educational/>
-      <Practical/>
+        <Header/>
+        <General/>
+        <div className='lg:flex'>
+          <Educational/>
+          <Practical/>
+        </div>
       </div>
     );
   }

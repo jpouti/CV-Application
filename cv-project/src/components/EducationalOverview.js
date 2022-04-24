@@ -5,17 +5,21 @@ export default class EducationalOverview extends Component {
         super()
     }
   render() {
-      const { school, title, dateStart, dateEnd, edit } = this.props;
+      const { school, title, dateStart, dateEnd, edit, courses } = this.props;
       const check = this.props.ongoing
-        ? <p>Ongoing studies</p>
-        : <p>Ending date:<br/> {dateEnd}</p>;
+        ? <p>Ongoing</p>
+        : <p>{dateEnd}</p>;
     return (
-      <div className="flex gap-10 mt-10">
-        <p>School Name: <br/> {school}</p>
-        <p>Title: <br/> {title}</p>
-        <p>Start of studies:<br/>  {dateStart}</p>
-        {check}
-        <button onClick={edit} type='button'>Edit</button>
+      <div className="flex flex-col gap-10 mt-10">
+        <div className='flex gap-10'>
+            <div className='flex gap-2'>{dateStart} / {check}</div>
+            <p>{school}</p>
+            <p>{title}</p>
+        </div>
+        <div className='flex'>
+            <p className='flex-1 mr-10'>Major studies:<br/>  {courses}</p>
+            <button onClick={edit} type='button'>Edit</button>
+        </div>
       </div>
     )
   }
