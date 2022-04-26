@@ -8,77 +8,141 @@ class Educational extends Component {
         super();
 
         this.state = {
-            school: "",
-            title: "",
-            courses: "",
-            dateStart: "",
-            dateEnd: "",
-            ongoing: false,
+            education: {
+                school: "",
+                title: "",
+                courses: "",
+                dateStart: "",
+                dateEnd: "",
+                ongoing: false,
+                id: 1
+            },
             submitInfo: "hidden",
-            edit: "block"
-        }
+            edit: "block",
+            educations: [],
+        };
     }
 
     handleSchool = (e) => {
         this.setState({
-            school: e.target.value
+            education: {
+                school: e.target.value,
+                title: this.state.education.title,
+                dateStart: this.state.education.dateStart,
+                dateEnd: this.state.education.dateEnd,
+                courses: this.state.education.courses,
+                ongoing: this.state.education.ongoing,
+                id: this.state.education.id,
+            }
         })
     }
     handleTitle = (e) => {
         this.setState({
-            title: e.target.value
+            education: {
+                school: this.state.education.school,
+                title: e.target.value,
+                dateStart: this.state.education.dateStart,
+                dateEnd: this.state.education.dateEnd,
+                courses: this.state.education.courses,
+                ongoing: this.state.education.ongoing,
+                id: this.state.education.id,
+            }
         })
     }
     handleStartDate = (e) => {
         this.setState({
-            dateStart: e.target.value
+            education: {
+                school: this.state.education.school,
+                title: this.state.education.title,
+                dateStart: e.target.value,
+                dateEnd: this.state.education.dateEnd,
+                courses: this.state.education.courses,
+                ongoing: this.state.education.ongoing,
+                id: this.state.education.id,
+            }
         })
     }
     handleEndDate = (e) => {
         this.setState({
-            dateEnd: e.target.value
+            education: {
+                school: this.state.education.school,
+                title: this.state.education.title,
+                dateStart: this.state.education.dateStart,
+                dateEnd: e.target.value,
+                courses: this.state.education.courses,
+                ongoing: this.state.education.ongoing,
+                id: this.state.education.id,
+            }
         })
     }
     handleCourses = (e) => {
         this.setState({
-            courses: e.target.value
-        })
-    }
-  
-    onSubmitGeneral = (e) => {
-        e.preventDefault();
-        if (this.state.school === "") {
-            alert('Please enter school name before submitting!');
-            return
-        } else if (this.state.title === "") {
-            alert('Please enter title of your degree before submitting!')
-            return
-        } else if (this.state.dateStart === "") {
-            alert('Please enter starting date for studies before submitting!')
-            return
-        } else if (this.state.dateEnd === "") {
-            this.setState({
-                ongoing: true
-            })
-        }
-        this.setState({
-            submitInfo: 'flex',
-            edit: 'hidden'
+            education: {
+                school: this.state.education.school,
+                title: this.state.education.title,
+                dateStart: this.state.education.dateStart,
+                dateEnd: this.state.education.dateEnd,
+                courses: e.target.value,
+                ongoing: this.state.education.ongoing,
+                id: this.state.education.id,
+            }
         })
     }
     handleCheck = () => {
         this.setState(
-            prevState => ({ongoing: !prevState.ongoing
+            prevState => ({
+                education: {
+                    school: this.state.education.school,
+                    title: this.state.education.title,
+                    dateStart: this.state.education.dateStart,
+                    dateEnd: this.state.education.dateEnd,
+                    courses: this.state.education.courses,
+                    ongoing: !prevState.education.ongoing,
+                    id: this.state.education.id,
+                }
         }))
     }
+  
+    onSubmitGeneral = (e) => {
+        e.preventDefault();
+        if (this.state.education.school === "") {
+            alert('Please enter school name before submitting!');
+            return
+        } else if (this.state.education.title === "") {
+            alert('Please enter title of your degree before submitting!')
+            return
+        } else if (this.state.education.dateStart === "") {
+            alert('Please enter starting date for studies before submitting!')
+            return
+        } else if (this.state.education.dateEnd === "" && this.state.education.ongoing === false) {
+            alert('Please enter ending date or select ongoing studies option');
+            return
+        }
+        this.setState({
+            educations: this.state.educations.concat(this.state.education),
+            submitInfo: 'flex',
+            edit: 'hidden',
+            education: {
+                school: "",
+                title: "",
+                courses: "",
+                dateStart: "",
+                dateEnd: "",
+                ongoing: false,
+                id: this.state.education.id + 1
+            },
+        })
+    }
+
     handleEdit = (e) => {
         e.preventDefault();
         this.setState({
             submitInfo: 'hidden',
-            edit: 'block'
+            edit: 'block',
         })
     }
     render() {
+        const { educations, education } = this.state;
         return (
             <div className="container p-5" >
                 <div className="mt-10 mx-10 lg:max-w-3xl">
@@ -89,7 +153,7 @@ class Educational extends Component {
                         <input
                             className="col-start-2"
                             onChange={this.handleSchool}
-                            value={this.school}
+                            value={education.school}
                             type='text'
                             id="schoolInput"
                             placeholder="University of Helsinki"
@@ -98,7 +162,7 @@ class Educational extends Component {
                         <label htmlFor="titleInput">Title:</label>
                         <input
                             onChange={this.handleTitle}
-                            value={this.title}
+                            value={education.title}
                             type='text'
                             id="titleInput"
                             placeholder="Computer Science"
@@ -106,14 +170,14 @@ class Educational extends Component {
                         <label htmlFor="dateStartInput">Start of studies:</label>
                         <input
                             onChange={this.handleStartDate}
-                            value={this.dateStart}
+                            value={education.dateStart}
                             type="date"
                             id="dateStartInput"
                         />
                         <label htmlFor="dateEndInput">End of studies:</label>
                         <input
                             onChange={this.handleEndDate}
-                            value={this.dateEnd}
+                            value={education.dateEnd}
                             type="date"
                             id="dateEndInput"
                         />
@@ -126,13 +190,12 @@ class Educational extends Component {
                             rows="4"
                             maxLength={2000}
                             onChange={this.handleCourses}
-                            value={this.courses}
-                            placeholder="Please enter major courses or key projects you have accomplished while studying"
-                            
+                            value={education.courses}
+                            placeholder="Please enter major courses or key projects you have accomplished while studying" 
                         />
                         </form>
                     </div>
-                    <div className={this.state.submitInfo.toString()}><EducationalOverview school={this.state.school} title={this.state.title} dateStart={this.state.dateStart} dateEnd={this.state.dateEnd} ongoing={this.state.ongoing} courses={this.state.courses} edit={this.handleEdit}/></div>
+                    <div className={this.state.submitInfo.toString()}><EducationalOverview educations={educations} edit={this.handleEdit}/></div>
                 </div>
             </div>
         );
