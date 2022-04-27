@@ -92,7 +92,6 @@ class Practical extends Component {
         })
     }
     handleCheck(){
-        console.log('ttt')
         this.setState(
             prevState => ({
                 job: {
@@ -133,7 +132,7 @@ class Practical extends Component {
         }
         this.setState({
             jobs: this.state.jobs.concat(this.state.job),
-            submitInfo: 'flex',
+            submitInfo: 'block',
             edit: 'hidden',
             job: {
                 company: "",
@@ -147,8 +146,6 @@ class Practical extends Component {
         })
     }
     addNew() {
-        console.log(this.state.job)
-        console.log(this.state.job.ongoing)
         this.setState({
             submitInfo: 'hidden',
             edit: 'block',
@@ -165,12 +162,12 @@ class Practical extends Component {
         return (
             <div className="container p-5">
                 <div className="card mt-10 mx-10">
-                    <div className="flex justify-between mr-20">
-                        <h3 className="text-sky-800 font-bold">Practical experiene:</h3>
-                        <button onClick={this.addNew} type='button'>Add Work</button>
+                    <div className="flex justify-between p-4 bg-sky-500 rounded">
+                        <h3>Practical experience:</h3>
+                        <button onClick={this.addNew} type='button' className="mr-4 text-stone-100">Add Work</button>
                     </div>
-                    <div className={this.state.edit.toString()}>
-                        <form onSubmit={this.onSubmitGeneral} className="grid grid-rows-5 grid-cols-auto gap-1 lg:gap-5 mt-10">
+                    <div className={this.state.edit.toString() + " bg-blue-200 rounded px-4 pt-1 pb-4 mt-5"}>
+                        <form onSubmit={this.onSubmitGeneral} className="grid grid-rows-5 grid-cols-auto gap-1 lg:gap-5 mt-5">
                         <label htmlFor="companyInput">Company name:</label>
                         <input
                             className="col-start-2"
@@ -180,7 +177,7 @@ class Practical extends Component {
                             id="companyInput"
                             placeholder="Google"
                         />
-                        <button type="submit" onClick={this.onSubmitGeneral} className="col-start-3 row-span-5 mt-5">Add</button>
+                        <button type="submit" onClick={this.onSubmitGeneral} className="col-start-3 row-span-5 mt-5 text-sky-800">Submit</button>
                         <label htmlFor="positionInput">Title:</label>
                         <input
                             onChange={this.handlePosition}

@@ -1,3 +1,7 @@
+body {
+    background-color: rgb(239, 246, 255);
+}
+
 .container {
     max-width: 100%;
 }
@@ -8,7 +12,23 @@
     padding: 0.15rem;
     padding-left: 0.4rem;
 }
-/*
-.container label {
-    color: white;
-} */
+
+h2,
+h3 {
+    color: whitesmoke;
+    font-weight: bold;
+}
+
+.container button {
+    font-weight: bold;
+}
+
+.container label,
+.container p {
+    color: rgb(14, 74, 110);
+    font-weight: bold;
+}
+
+.container p.normal {
+    font-weight: 400;
+}

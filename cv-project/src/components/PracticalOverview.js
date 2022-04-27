@@ -1,29 +1,4 @@
 import React from 'react'
-/*
-export default class PracticalOverview extends Component {
-    constructor() {
-        super()
-    }
-  render() {
-      const { company, position, dateStart, dateEnd, tasks, edit } = this.props;
-      const check = this.props.ongoing
-        ? <p>Ongoing</p>
-        : <p>{dateEnd}</p>;
-    return (
-      <div className="flex flex-col gap-10 mt-10">
-        <div className='flex gap-10'>
-            <div className='flex gap-2'>{dateStart} / {check}</div>
-            <p>{company}</p>
-            <p>{position}</p>
-        </div>
-        <div className='flex'>
-            <p className='flex-1 mr-10'>Main tasks:<br/>  {tasks}</p>
-            <button onClick={edit} type='button'>Edit</button>
-        </div>
-      </div>   
-    )
-  }
-} */
 
 const PracticalOverview = (props) => {
     const { jobs } = props;
@@ -32,18 +7,20 @@ const PracticalOverview = (props) => {
         <div>
         {jobs.map((job) => {
         return (
-        <div key={job.id} className="flex flex-col gap-10 mt-10">
-            <div className='flex gap-10'>
-                <div className='flex gap-2'>{job.dateStart} / {job.ongoing
+        <div key={job.id} className="flex justify-between mt-5 p-4 bg-sky-200 rounded">
+            <div className='flex flex-col gap-8'>
+                <div className='flex gap-2 text-sky-900 font-bold'>{job.dateStart} / {job.ongoing
                         ? <p>Ongoing</p>
-                        : <p>{job.dateEnd}</p>}</div>
+                        : <p>{job.dateEnd}</p>}
+                </div>
+                <p>Major tasks:</p>
+            </div>
+            <div className='flex flex-col flex-1 gap-2 mx-8'>
                 <p>{job.company}</p>
-                <p>{job.position}</p>
+                <p className='normal'>{job.position}</p>
+                <p className='normal'>{job.tasks}</p>
             </div>
-            <div className='flex'>
-                <p className='flex-1 mr-10'>Major tasks:<br/>  {job.tasks}</p>
-                <button onClick={() => props.delete(job.id)}>Remove</button>
-            </div>
+            <button onClick={() => props.delete(job.id)} className='mr-4 text-sky-900'>Remove</button>
         </div>
         )
                 })}

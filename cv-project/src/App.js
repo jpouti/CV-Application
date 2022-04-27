@@ -18,7 +18,7 @@ class App extends Component {
       <div>
         <Header/>
         <General/>
-        <div className='lg:flex'>
+        <div className='xl:flex'>
           <Educational/>
           <Practical/>
         </div>

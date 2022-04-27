@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 
 const EducationalOverview = (props) => {
     const { educations } = props;
@@ -7,18 +7,20 @@ const EducationalOverview = (props) => {
         <div>
         {educations.map((education) => {
         return (
-        <div key={education.id} className="flex flex-col gap-10 mt-10">
-            <div className='flex gap-10'>
-                <div className='flex gap-2'>{education.dateStart} / {education.ongoing
+        <div key={education.id} className="flex justify-between mt-5 p-4 bg-sky-200 rounded">
+            <div className='flex flex-col gap-8'>
+                <div className='flex gap-2 text-sky-900 font-bold'>{education.dateStart} / {education.ongoing
                         ? <p>Ongoing</p>
-                        : <p>{education.dateEnd}</p>}</div>
+                        : <p>{education.dateEnd}</p>}
+                </div>
+                <p>Majors:</p>
+            </div>
+            <div className='flex flex-col flex-1 gap-2 mx-8'>
                 <p>{education.school}</p>
-                <p>{education.title}</p>
+                <p className='normal'>{education.title}</p>
+                <p className='normal'>{education.courses}</p>
             </div>
-            <div className='flex'>
-                <p className='flex-1 mr-10'>Major studies:<br/>  {education.courses}</p>
-                <button onClick={() => props.delete(education.id)}>Remove</button>
-            </div>
+            <button onClick={() => props.delete(education.id)} className="mr-4 text-sky-900">Remove</button>
         </div>
         )
                 })}

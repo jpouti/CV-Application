@@ -63,7 +63,7 @@ class General extends Component {
         return (
             <div className="container mt-10 p-5 lg:flex lg:justify-center bg-sky-500">
                 <div className="mx-10">
-                    <h3 className="text-sky-800 font-bold">Personal Information:</h3>
+                    <h3>Personal Information:</h3>
                     <div className={this.state.edit.toString()}>
                         <form onSubmit={this.onSubmitGeneral} className="grid grid-rows-3 lg:grid-rows-2 grid-cols-auto gap-1 lg:gap-5 mt-10 lg:max-w-3xl ">
                         <label htmlFor="nameInput" >Name: </label>
@@ -93,10 +93,10 @@ class General extends Component {
                             id="phoneInput"
                             placeholder="+358 501213123"
                         />
-                        <button type="submit" onClick={this.onSubmitGeneral} className="col-start-3 row-span-3 lg:col-start-4 lg:row-span-2">Add</button>
+                        <button type="submit" onClick={this.onSubmitGeneral} className="col-start-3 row-span-3 lg:col-start-4 lg:row-span-2 text-stone-100">Add</button>
                         </form>
                     </div>
-                    <div className={this.state.submitInfo.toString()}><GeneralOverview name={this.state.name} email={this.state.email} phone={this.state.phone} edit={this.handleEdit}/></div>
+                    <div className={this.state.submitInfo.toString() + " justify-center"}><GeneralOverview name={this.state.name} email={this.state.email} phone={this.state.phone} edit={this.handleEdit}/></div>
                 </div>
             </div>
         );

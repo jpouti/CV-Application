@@ -123,7 +123,7 @@ class Educational extends Component {
         }
         this.setState({
             educations: this.state.educations.concat(this.state.education),
-            submitInfo: 'flex',
+            submitInfo: 'block',
             edit: 'hidden',
             education: {
                 school: "",
@@ -153,13 +153,13 @@ class Educational extends Component {
         const { educations, education } = this.state;
         return (
             <div className="container p-5" >
-                <div className="mt-10 mx-10 lg:max-w-3xl">
-                    <div className="flex justify-between mr-20">
-                        <h3 className="text-sky-800 font-bold">Educational experiene:</h3>
-                        <button onClick={this.addNew} type='button'>Add Education</button>
+                <div className="mt-10 mx-10">
+                    <div className="flex justify-between p-4 bg-sky-500 rounded">
+                        <h3>Educational experience:</h3>
+                        <button onClick={this.addNew} type='button' className="mr-4 text-stone-100">Add Education</button>
                     </div>
-                    <div className={this.state.edit.toString()}>
-                        <form onSubmit={this.onSubmitGeneral} className="grid grid-rows-5 grid-cols-auto gap-1 lg:gap-5 mt-10">
+                    <div className={this.state.edit.toString() + " bg-blue-200 rounded px-4 pt-1 pb-4 mt-5"}>
+                        <form onSubmit={this.onSubmitGeneral} className="grid grid-rows-5 grid-cols-auto gap-1 lg:gap-5 mt-5">
                         <label htmlFor="schoolInput">School name:</label>
                         <input
                             className="col-start-2"
@@ -169,7 +169,7 @@ class Educational extends Component {
                             id="schoolInput"
                             placeholder="University of Helsinki"
                         />
-                        <button type="submit" onClick={this.onSubmitGeneral} className="col-start-3 row-span-5 mt-5">Submit</button>
+                        <button type="submit" onClick={this.onSubmitGeneral} className="col-start-3 row-span-5 mt-5 text-sky-800">Submit</button>
                         <label htmlFor="titleInput">Title:</label>
                         <input
                             onChange={this.handleTitle}
@@ -198,7 +198,7 @@ class Educational extends Component {
                         <textarea
                             className="bg-sky-100 rounded p-2"
                             type="text"
-                            rows="4"
+                            rows="5"
                             maxLength={2000}
                             onChange={this.handleCourses}
                             value={education.courses}
@@ -206,7 +206,7 @@ class Educational extends Component {
                         />
                         </form>
                     </div>
-                    <div className={this.state.submitInfo.toString()}><EducationalOverview educations={educations} delete={this.handleDelete}/></div>
+                    <div className={this.state.submitInfo.toString() + " w-full md:w-auto"}><EducationalOverview educations={educations} delete={this.handleDelete}/></div>
                 </div>
             </div>
         );
