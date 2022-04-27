@@ -8,85 +8,174 @@ class Practical extends Component {
         super();
 
         this.state = {
-            company: "",
-            position: "",
-            tasks: "",
-            dateStart: "",
-            dateEnd: "",
-            ongoing: false,
+            job: {
+                company: "",
+                position: "",
+                tasks: "",
+                dateStart: "",
+                dateEnd: "",
+                ongoing: false,
+                id: 1,
+            },
             submitInfo: "hidden",
-            edit: "block"
+            edit: "block",
+            jobs: [],
         }
+        this.handleDelete = this.handleDelete.bind(this);
+        this.handleCheck = this.handleCheck.bind(this);
+        this.addNew = this.addNew.bind(this);
     }
 
     handleCompany = (e) => {
         this.setState({
-            company: e.target.value
+            job: {
+                company: e.target.value,
+                position: this.state.job.position,
+                tasks: this.state.job.tasks,
+                dateStart: this.state.job.dateStart,
+                dateEnd: this.state.job.dateEnd,
+                ongoing: this.state.job.ongoing,
+                id: this.state.job.id,
+            }
         })
     }
     handlePosition = (e) => {
         this.setState({
-            position: e.target.value
+            job: {
+                company: this.state.job.company,
+                position: e.target.value,
+                tasks: this.state.job.tasks,
+                dateStart: this.state.job.dateStart,
+                dateEnd: this.state.job.dateEnd,
+                ongoing: this.state.job.ongoing,
+                id: this.state.job.id,
+            }
         })
     }
     handleStartDate = (e) => {
         this.setState({
-            dateStart: e.target.value
+            job: {
+                company: this.state.job.company,
+                position: this.state.job.position,
+                tasks: this.state.job.tasks,
+                dateStart: e.target.value,
+                dateEnd: this.state.job.dateEnd,
+                ongoing: this.state.job.ongoing,
+                id: this.state.job.id,
+            }
         })
     }
     handleEndDate = (e) => {
         this.setState({
-            dateEnd: e.target.value
+            job: {
+                company: this.state.job.company,
+                position: this.state.job.position,
+                tasks: this.state.job.tasks,
+                dateStart: this.state.job.dateStart,
+                dateEnd: e.target.value,
+                ongoing: this.state.job.ongoing,
+                id: this.state.job.id,
+            }
         })
     }
     handleTasks = (e) => {
         this.setState({
-            tasks: e.target.value
+            job: {
+                company: this.state.job.company,
+                position: this.state.job.position,
+                tasks: e.target.value,
+                dateStart: this.state.job.dateStart,
+                dateEnd: this.state.job.dateEnd,
+                ongoing: this.state.job.ongoing,
+                id: this.state.job.id,
+            }
         })
     }
-    handleCheck = () => {
+    handleCheck(){
+        console.log('ttt')
         this.setState(
-            prevState => ({ongoing: !prevState.ongoing
-        }))
+            prevState => ({
+                job: {
+                    company: this.state.job.company,
+                    position: this.state.job.position,
+                    tasks: this.state.job.tasks,
+                    dateStart: this.state.job.dateStart,
+                    dateEnd: this.state.job.dateEnd,
+                    ongoing: !prevState.job.ongoing,
+                    id: this.state.job.id,
+                }
+            })
+        )    
     }
   
     onSubmitGeneral = (e) => {
         e.preventDefault();
-        if (this.state.company === "" || this.state.position === "") {
+        if (this.state.job.company === "" || this.state.job.position === "") {
             alert('Please enter company name or position title');
             return 
-        }   else if (this.state.dateStart === "") {
+        }   else if (this.state.job.dateStart === "") {
                 alert('Please enter starting date for studies before submitting!')
                 return
-            } else if (this.state.dateEnd === "") {
-                this.setState({
-                    ongoing: true
-                })
+            } else if (this.state.job.dateEnd === "") {
+                this.setState(
+                    prevState => ({
+                        job: {
+                            company: this.state.job.company,
+                            position: this.state.job.position,
+                            tasks: this.state.job.tasks,
+                            dateStart: this.state.job.dateStart,
+                            dateEnd: this.state.job.dateEnd,
+                            ongoing: !prevState.job.ongoing,
+                            id: this.state.job.id,
+                        }
+                    })
+                )
         }
         this.setState({
+            jobs: this.state.jobs.concat(this.state.job),
             submitInfo: 'flex',
-            edit: 'hidden'
+            edit: 'hidden',
+            job: {
+                company: "",
+                position: "",
+                tasks: "",
+                dateStart: "",
+                dateEnd: "",
+                ongoing: false,
+                id: this.state.job.id + 1
+            },
         })
     }
-    handleEdit = (e) => {
-        e.preventDefault();
+    addNew() {
+        console.log(this.state.job)
+        console.log(this.state.job.ongoing)
         this.setState({
             submitInfo: 'hidden',
-            edit: 'block'
+            edit: 'block',
+        })
+        this.render();
+    }
+    handleDelete(id) {
+        this.setState({
+            jobs: this.state.jobs.filter(job => job.id !== id)
         })
     }
     render() {
+        const { jobs, job } = this.state;
         return (
             <div className="container p-5">
                 <div className="card mt-10 mx-10">
-                    <h3 className="text-sky-800 font-bold">Practical experiene:</h3>
+                    <div className="flex justify-between mr-20">
+                        <h3 className="text-sky-800 font-bold">Practical experiene:</h3>
+                        <button onClick={this.addNew} type='button'>Add Work</button>
+                    </div>
                     <div className={this.state.edit.toString()}>
                         <form onSubmit={this.onSubmitGeneral} className="grid grid-rows-5 grid-cols-auto gap-1 lg:gap-5 mt-10">
                         <label htmlFor="companyInput">Company name:</label>
                         <input
                             className="col-start-2"
                             onChange={this.handleCompany}
-                            value={this.company}
+                            value={job.company}
                             type='text'
                             id="companyInput"
                             placeholder="Google"
@@ -95,7 +184,7 @@ class Practical extends Component {
                         <label htmlFor="positionInput">Title:</label>
                         <input
                             onChange={this.handlePosition}
-                            value={this.position}
+                            value={job.position}
                             type='text'
                             id="positionInput"
                             placeholder="Intern"
@@ -103,19 +192,21 @@ class Practical extends Component {
                         <label htmlFor="dateStartInput">Start of work:</label>
                         <input
                             onChange={this.handleStartDate}
-                            value={this.dateStart}
+                            value={job.dateStart}
                             type="date"
                             id="dateStartInput"
                         />
                         <label htmlFor="dateEndInput">End of work:</label>
                         <input
                             onChange={this.handleEndDate}
-                            value={this.dateEnd}
+                            value={job.dateEnd}
                             type="date"
                             id="dateEndInput"
                         />
                         <label htmlFor="ongoing">Ongoing:</label>
-                        <div className="text-center"><input type="checkbox" onChange={this.handleCheck}/></div>
+                        <div className="text-center">
+                            <input type="checkbox" checked={job.ongoing} onChange={this.handleCheck}/>
+                        </div>
                         <label htmlFor="tasksInput">Main tasks:</label>
                         <textarea
                             className="bg-sky-100 rounded p-2"
@@ -123,12 +214,12 @@ class Practical extends Component {
                             rows="5"
                             maxLength={2000}
                             onChange={this.handleTasks}
-                            value={this.tasks}
+                            value={job.tasks}
                             placeholder="Please explain shortly main working tasks and responsibilities of the job"
                         />
                         </form>
                     </div>
-                    <div className={this.state.submitInfo.toString()}><PracticalOverview company={this.state.company} position={this.state.position} dateStart={this.state.dateStart} dateEnd={this.state.dateEnd} ongoing={this.state.ongoing} tasks={this.state.tasks} edit={this.handleEdit}/></div>
+                    <div className={this.state.submitInfo.toString()}><PracticalOverview jobs={jobs} delete={this.handleDelete}/></div>
                 </div>
             </div>
         );

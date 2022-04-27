@@ -4,8 +4,8 @@ import React, { Component } from "react";
 import EducationalOverview from "./EducationalOverview.js";
 
 class Educational extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.state = {
             education: {
@@ -21,6 +21,9 @@ class Educational extends Component {
             edit: "block",
             educations: [],
         };
+        this.handleDelete = this.handleDelete.bind(this);
+        this.addNew = this.addNew.bind(this);
+        this.handleCheck = this.handleCheck.bind(this);
     }
 
     handleSchool = (e) => {
@@ -134,11 +137,16 @@ class Educational extends Component {
         })
     }
 
-    handleEdit = (e) => {
-        e.preventDefault();
+    addNew() {
         this.setState({
             submitInfo: 'hidden',
             edit: 'block',
+        })
+        this.render();
+    }
+    handleDelete(id) {
+        this.setState({
+            educations: this.state.educations.filter(edu => edu.id !== id)
         })
     }
     render() {
@@ -146,7 +154,10 @@ class Educational extends Component {
         return (
             <div className="container p-5" >
                 <div className="mt-10 mx-10 lg:max-w-3xl">
-                    <h3 className="text-sky-800 font-bold">Educational experiene:</h3>
+                    <div className="flex justify-between mr-20">
+                        <h3 className="text-sky-800 font-bold">Educational experiene:</h3>
+                        <button onClick={this.addNew} type='button'>Add Education</button>
+                    </div>
                     <div className={this.state.edit.toString()}>
                         <form onSubmit={this.onSubmitGeneral} className="grid grid-rows-5 grid-cols-auto gap-1 lg:gap-5 mt-10">
                         <label htmlFor="schoolInput">School name:</label>
@@ -158,7 +169,7 @@ class Educational extends Component {
                             id="schoolInput"
                             placeholder="University of Helsinki"
                         />
-                        <button type="submit" onClick={this.onSubmitGeneral} className="col-start-3 row-span-5 mt-5">Add</button>
+                        <button type="submit" onClick={this.onSubmitGeneral} className="col-start-3 row-span-5 mt-5">Submit</button>
                         <label htmlFor="titleInput">Title:</label>
                         <input
                             onChange={this.handleTitle}
@@ -182,7 +193,7 @@ class Educational extends Component {
                             id="dateEndInput"
                         />
                         <label htmlFor="ongoing" >Ongoing Studies:</label>
-                        <div className="text-center"><input type="checkbox" onChange={this.handleCheck}/></div>
+                        <div className="text-center"><input type="checkbox" checked={education.ongoing} onChange={this.handleCheck}/></div>
                         <label htmlFor="courseInput">Majors:</label>
                         <textarea
                             className="bg-sky-100 rounded p-2"
@@ -195,7 +206,7 @@ class Educational extends Component {
                         />
                         </form>
                     </div>
-                    <div className={this.state.submitInfo.toString()}><EducationalOverview educations={educations} edit={this.handleEdit}/></div>
+                    <div className={this.state.submitInfo.toString()}><EducationalOverview educations={educations} delete={this.handleDelete}/></div>
                 </div>
             </div>
         );

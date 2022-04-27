@@ -1,13 +1,10 @@
 import React, { Component } from 'react'
 
-export default class EducationalOverview extends Component {
-    constructor() {
-        super()
-    }
-  render() {
-    const { educations } = this.props; 
+const EducationalOverview = (props) => {
+    const { educations } = props;
+
     return (
-    <div>
+        <div>
         {educations.map((education) => {
         return (
         <div key={education.id} className="flex flex-col gap-10 mt-10">
@@ -20,12 +17,13 @@ export default class EducationalOverview extends Component {
             </div>
             <div className='flex'>
                 <p className='flex-1 mr-10'>Major studies:<br/>  {education.courses}</p>
-                <button onClick={this.props.edit} type='button'>Edit</button>
+                <button onClick={() => props.delete(education.id)}>Remove</button>
             </div>
         </div>
         )
                 })}
     </div>
     )
-  }
 }
+
+export default EducationalOverview;
