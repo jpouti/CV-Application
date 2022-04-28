@@ -17,6 +17,7 @@ class App extends Component {
     }
 
     this.handleSubmitCv = this.handleSubmitCv.bind(this);
+    this.handleBackspace = this.handleBackspace.bind(this);
   }
 
   handleSubmitCv = (e) => {
@@ -25,6 +26,14 @@ class App extends Component {
       displayForms: "hidden",
       submitCv: "block",
       cv: true,
+    })
+  }
+  handleBackspace = (e) => {
+    e.preventDefault();
+    this.setState({
+      displayForms: "block",
+      submitCv: "hidden",
+      cv: false,
     })
   }
   render() {
@@ -50,7 +59,10 @@ class App extends Component {
           <div>
             <Header/>
             <div className="bg-slate-200">
-              <General cv={this.state.cv}/>
+              <div>
+                <General cv={this.state.cv}/>
+                <button type='button' onClick={this.handleBackspace} className=" absolute top-24 right-20 font-bold text-sky-800">⌫ <br /> Edit </button>
+              </div>
               <div>
                 <Educational cv={this.state.cv}/>
                 <Practical cv={this.state.cv}/>
