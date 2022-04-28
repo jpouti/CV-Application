@@ -151,65 +151,74 @@ class Educational extends Component {
     }
     render() {
         const { educations, education } = this.state;
-        return (
-            <div className="container p-5" >
-                <div className="mt-10 mx-10">
-                    <div className="flex justify-between p-4 bg-sky-500 rounded">
-                        <h3>Educational experience:</h3>
-                        <button onClick={this.addNew} type='button' className="mr-4 text-stone-100">Add Education</button>
-                    </div>
-                    <div className={this.state.edit.toString() + " bg-blue-200 rounded px-4 pt-1 pb-4 mt-5"}>
-                        <form onSubmit={this.onSubmitGeneral} className="grid grid-rows-5 grid-cols-auto gap-1 lg:gap-5 mt-5">
-                        <label htmlFor="schoolInput">School name:</label>
-                        <input
-                            className="col-start-2"
-                            onChange={this.handleSchool}
-                            value={education.school}
-                            type='text'
-                            id="schoolInput"
-                            placeholder="University of Helsinki"
-                        />
-                        <button type="submit" onClick={this.onSubmitGeneral} className="col-start-3 row-span-5 mt-5 text-sky-800">Submit</button>
-                        <label htmlFor="titleInput">Title:</label>
-                        <input
-                            onChange={this.handleTitle}
-                            value={education.title}
-                            type='text'
-                            id="titleInput"
-                            placeholder="Computer Science"
-                        />
-                        <label htmlFor="dateStartInput">Start of studies:</label>
-                        <input
-                            onChange={this.handleStartDate}
-                            value={education.dateStart}
-                            type="date"
-                            id="dateStartInput"
-                        />
-                        <label htmlFor="dateEndInput">End of studies:</label>
-                        <input
-                            onChange={this.handleEndDate}
-                            value={education.dateEnd}
-                            type="date"
-                            id="dateEndInput"
-                        />
-                        <label htmlFor="ongoing" >Ongoing Studies:</label>
-                        <div className="text-center"><input type="checkbox" checked={education.ongoing} onChange={this.handleCheck}/></div>
-                        <label htmlFor="courseInput">Majors:</label>
-                        <textarea
-                            className="bg-sky-100 rounded p-2"
-                            type="text"
-                            rows="5"
-                            maxLength={2000}
-                            onChange={this.handleCourses}
-                            value={education.courses}
-                            placeholder="Please enter major courses or key projects you have accomplished while studying" 
-                        />
-                        </form>
-                    </div>
-                    <div className={this.state.submitInfo.toString() + " w-full md:w-auto"}><EducationalOverview educations={educations} delete={this.handleDelete}/></div>
+        if (this.props.cv === true) {
+            return (
+                <div className="mx-28 lg:mx-80 mt-16">
+                    <h1 className="p-4 text-sky-800 font-bold mt-8">Educational Experience</h1>
+                    <EducationalOverview educations={educations} cv={this.props.cv}/>
                 </div>
-            </div>
-        );
+            );
+        } else if (this.props.cv !== true) {
+            return (
+                <div className="container p-5" >
+                    <div className="mt-10 mx-10">
+                        <div className="flex justify-between p-4 bg-sky-500 rounded">
+                            <h3>Educational experience:</h3>
+                            <button onClick={this.addNew} type='button' className="mr-4 text-stone-100">Add Education</button>
+                        </div>
+                        <div className={this.state.edit.toString() + " bg-blue-200 rounded px-4 pt-1 pb-4 mt-5"}>
+                            <form onSubmit={this.onSubmitGeneral} className="grid grid-rows-5 grid-cols-auto gap-1 lg:gap-5 mt-5">
+                            <label htmlFor="schoolInput">School name:</label>
+                            <input
+                                className="col-start-2"
+                                onChange={this.handleSchool}
+                                value={education.school}
+                                type='text'
+                                id="schoolInput"
+                                placeholder="University of Helsinki"
+                            />
+                            <button type="submit" onClick={this.onSubmitGeneral} className="col-start-3 row-span-5 mt-5 text-sky-800">Submit</button>
+                            <label htmlFor="titleInput">Title:</label>
+                            <input
+                                onChange={this.handleTitle}
+                                value={education.title}
+                                type='text'
+                                id="titleInput"
+                                placeholder="Computer Science"
+                            />
+                            <label htmlFor="dateStartInput">Start of studies:</label>
+                            <input
+                                onChange={this.handleStartDate}
+                                value={education.dateStart}
+                                type="date"
+                                id="dateStartInput"
+                            />
+                            <label htmlFor="dateEndInput">End of studies:</label>
+                            <input
+                                onChange={this.handleEndDate}
+                                value={education.dateEnd}
+                                type="date"
+                                id="dateEndInput"
+                            />
+                            <label htmlFor="ongoing" >Ongoing Studies:</label>
+                            <div className="text-center"><input type="checkbox" checked={education.ongoing} onChange={this.handleCheck}/></div>
+                            <label htmlFor="courseInput">Majors:</label>
+                            <textarea
+                                className="bg-sky-100 rounded p-2"
+                                type="text"
+                                rows="5"
+                                maxLength={2000}
+                                onChange={this.handleCourses}
+                                value={education.courses}
+                                placeholder="Please enter major courses or key projects you have accomplished while studying" 
+                            />
+                            </form>
+                        </div>
+                        <div className={this.state.submitInfo.toString() + " w-full md:w-auto"}><EducationalOverview educations={educations} delete={this.handleDelete}/></div>
+                    </div>
+                </div>
+            );
+        }
     }
 }
 
